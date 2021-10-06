@@ -104,7 +104,7 @@
 
             });
             
-        } );
+       
 
 
 
@@ -114,33 +114,39 @@ function fill_datatable(filter_department = '')
         processing: true,
         serverSide: true,
         ajax:{
-            url: "/employee",
+            url: "/employee_dept",
             data:{filter_department:filter_department}
         },
         columns: [
 
-                {data: 'department', name: 'department'}
+            {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'department', name: 'department'},
+                    {data: 'custom_name', name: 'custom_name'},
+                    {data: 'action', name: 'action'},
+                    {data: 'action2', name: 'action2'}
               
         ]
     });
 
 } 
 
-$('#filter').click(function(){
+$('#filter_department').onclick(function(){
         var filter_department = $('#filter_department').val();
       
 
         if(filter_department != '' &&  filter_department != '')
         {
             $('#table_id').DataTable().destroy();
-            fill_datatable(filter_gender);
+            fill_datatable(filter_department);
         }
         else
         {
             alert('Select Both filter option');
         }
     });
-     
+    
+} );    
         
     </script>
     

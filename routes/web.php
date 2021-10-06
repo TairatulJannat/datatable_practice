@@ -20,5 +20,6 @@ Route::get('/', function () {
 
 // Route::get('empployee','EmployeeController@index');
 Route::get('/employee',[EmployeeController::class, 'index']);
+Route::get('/employee_dept/{dept}',[EmployeeController::class, 'employee_dept']);
 Route::get('/load',[EmployeeController::class, 'load']);
 
