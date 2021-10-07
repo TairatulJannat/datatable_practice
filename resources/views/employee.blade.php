@@ -108,35 +108,43 @@
 
 
 
-function fill_datatable(filter_department = '')
+function fill_datatable(filter_department)
 {
-    var dataTable = $('#table_id').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax:{
-            url: "/employee_dept",
-            data:{filter_department:filter_department}
-        },
-        columns: [
-
-            {data: 'id', name: 'id'},
+    $('#table_id').DataTable({
+                processing: false,
+                serverSide: true,
+                ajax: `/employee_dept/${filter_department}`,
+                columns: [
+                    {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'department', name: 'department'},
                     {data: 'custom_name', name: 'custom_name'},
                     {data: 'action', name: 'action'},
                     {data: 'action2', name: 'action2'}
-              
-        ]
-    });
+                   
+                ],
+                dom: 'flrtip',
+                buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Export',
+                                buttons: [ 'csv', 'excel', 'pdf', 'print', 'copy'],
+                                background:true
+                            }
+                        ],
+
+            });
 
 } 
 
-$('#filter_department').onclick(function(){
-        var filter_department = $('#filter_department').val();
+$('#filter_department').on('change', function(){
+    // alert(this.value);
+   var filter_department = this.value;
       
 
-        if(filter_department != '' &&  filter_department != '')
-        {
+        if(filter_department != '')
+        { 
+            // alert('somthing');
             $('#table_id').DataTable().destroy();
             fill_datatable(filter_department);
         }
@@ -144,7 +152,9 @@ $('#filter_department').onclick(function(){
         {
             alert('Select Both filter option');
         }
-    });
+
+});
+
     
 } );    
         
